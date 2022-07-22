@@ -20,6 +20,14 @@ func poseMatrix*[T](translate: array[3,T]; rotate: NQuat[T]; scale: array[3,T]):
   result[2] = vec(scalerot_mat[2], 0.T)
   result[3] = vec(translate,    1.T)
 
+func poseMatrix*[T](translate: array[3,T]; rotate: NQuat[T]): Mat[4,4,T] =
+  let rot = rotate.mat3
+
+  result[0] = vec(rot[0], 0.T)
+  result[1] = vec(rot[1], 0.T)
+  result[2] = vec(rot[2], 0.T)
+  result[3] = vec(translate,    1.T)
+
 func pickMatrix*[T](center, delta: array[2,T]; viewport: array[4,T]): Mat[4,4,T] =
   ## Define a picking region
   assert(delta.x > T(0) and delta.y > T(0))
